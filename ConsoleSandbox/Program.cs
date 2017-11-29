@@ -15,7 +15,7 @@ namespace ConsoleSandbox
             (new Program()).Start();
         }
 
-        void Start()
+        void StartLoader()
         {
             Loader.Init();
 
@@ -32,6 +32,24 @@ namespace ConsoleSandbox
 
             // next command: fail
             var mi2 = RunMethod("IPlugin.Echo", class2, "fail");
+        }
+
+        void Start()
+        {
+            string dllname = "Plugin\\ClassLibrary1.dll";
+
+            using (var sandbox = Sandbox.CreateFromFile(dllname))
+            {
+                var assembly = sandbox.LoadAssembly(dllname);
+
+                var class1 = CreateInstance(assembly, "ClassLibrary1.Class1");
+                var class2 = CreateInstance(assembly, "ClassLibrary1.Class2");
+
+                var mi1 = RunMethod("IPlugin.Echo", class1, "abc");
+
+                // next command: fail
+                var mi2 = RunMethod("IPlugin.Echo", class2, "fail");
+            }            
         }
 
         byte[] LoadDll(string dllname)
