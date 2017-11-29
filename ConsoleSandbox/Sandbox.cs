@@ -16,8 +16,14 @@ namespace ConsoleSandbox
         public Sandbox(string plugin)
         {
             _plugin = plugin;
-            _domain = AppDomain.CreateDomain(plugin);
-            _domain.AssemblyResolve += SandboxAssemblyResolve;
+
+            AppDomainSetup domaininfo = new AppDomainSetup();
+            domaininfo.ApplicationBase = Path.GetFullPath("plugin");
+
+            _domain = AppDomain.CreateDomain(plugin, null, domaininfo);
+            //_domain.AssemblyResolve += SandboxAssemblyResolve;
+
+            AppDomain.CurrentDomain.AssemblyResolve += SandboxAssemblyResolve;
         }
 
         public static Sandbox CreateFromFile(string path)
@@ -27,30 +33,47 @@ namespace ConsoleSandbox
             return new Sandbox(name);
         }
 
-        public Assembly LoadAssembly(string path)
+
+        public Assembly LoadAssembly(string assemblyFile)
         {
-            return Assembly.LoadFile(path);
+            return LoadAssembly(this._domain, assemblyFile);
         }
 
-        private Assembly SandboxAssemblyResolve(object sender, ResolveEventArgs args)
-        {            
-            string baseDirectory = _domain.BaseDirectory;
+        static Assembly LoadAssembly(AppDomain domain, string assemblyFile)
+        {
+            var bytes = File.ReadAllBytes(assemblyFile);
+
+            return domain.Load(bytes);
+        }
+
+        public object CreateInstance(string assemblyName, string typeName)
+        {
+            System.Runtime.Remoting.ObjectHandle a;
+            a = _domain.CreateInstance(assemblyName, typeName);
+
+            return a.CreateObjRef(typeof(IPlugin));
+        }
+
+        private static Assembly SandboxAssemblyResolve(object sender, ResolveEventArgs args)
+        {
+            AppDomain domain = (AppDomain)sender;
+            string baseDirectory = domain.BaseDirectory;
             
             string dll = FindAssemblyFile(baseDirectory, args.Name);
 
-            var asm = Assembly.LoadFile(dll);
+            var asm = LoadAssembly(domain, dll);
 
             return asm;
         }
 
-        private string FindAssemblyFile(string baseDirectory, string assemblyName)
+        private static string FindAssemblyFile(string baseDirectory, string assemblyName)
         {
             AssemblyName asmName = new AssemblyName(assemblyName);
             string name = (new AssemblyName(assemblyName)).Name;
             string defaultName = $"{name}.dll";
 
             string[] validPaths = new string[] {
-                Path.Combine(baseDirectory, "Plugin", this._plugin, $"{name}.dll"),
+                // Path.Combine(baseDirectory, "Plugin", this._plugin, $"{name}.dll"),
                 Path.Combine(baseDirectory, "Plugin", $"{name}.dll")
             };
 

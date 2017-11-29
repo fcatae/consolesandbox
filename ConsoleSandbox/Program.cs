@@ -40,10 +40,13 @@ namespace ConsoleSandbox
 
             using (var sandbox = Sandbox.CreateFromFile(dllname))
             {
-                var assembly = sandbox.LoadAssembly(dllname);
+                //var assembly = sandbox.LoadAssembly(dllname);
 
-                var class1 = CreateInstance(assembly, "ClassLibrary1.Class1");
-                var class2 = CreateInstance(assembly, "ClassLibrary1.Class2");
+                //var class1 = CreateInstance(assembly, "ClassLibrary1.Class1");
+                //var class2 = CreateInstance(assembly, "ClassLibrary1.Class2");
+
+                var class1 = sandbox.CreateInstance("ClassLibrary1", "ClassLibrary1.Class1");
+                var class2 = sandbox.CreateInstance("ClassLibrary1", "ClassLibrary1.Class2");
 
                 var mi1 = RunMethod("IPlugin.Echo", class1, "abc");
 
