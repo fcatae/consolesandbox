@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using System.Reflection.Emit;
 
@@ -34,14 +35,14 @@ namespace ConsoleSandbox
 
         static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
         {
-            //if (args.Name == Instance.m_dynamicModule.Assembly.FullName)
-            //{
-            //    return Instance.m_dynamicModule.Assembly;
-            //}
-            //else
-            {
-                return null;
-            }
+            AppDomain appDomain = (AppDomain)sender;
+            AssemblyName asmName = new AssemblyName(args.Name);
+            
+            string dll = Path.Combine(appDomain.BaseDirectory, "Plugin", $"{asmName.Name}.dll");
+
+            var asm = Assembly.LoadFile(dll);
+
+            return asm;
         }
 
         public static Loader Instance
