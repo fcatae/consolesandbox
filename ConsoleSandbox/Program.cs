@@ -12,11 +12,54 @@ namespace ConsoleSandbox
     {
         static void Main(string[] args)
         {
+            (new Program()).Start();
+        }
+
+        void Start()
+        {
             string dllname = "Plugin\\ClassLibrary1.dll";
 
-            var bytes = File.ReadAllBytes(dllname);
+            var bytes = LoadDll(dllname);
 
-            // assembly = System.Reflection.Assembly.Load();
+            var assembly = Assembly.Load(bytes);
+
+            var class1 = CreateInstance(assembly, "ClassLibrary1.Class1");
+            var class2 = CreateInstance(assembly, "ClassLibrary1.Class2");
+
+            var mi1 = RunMethod("IPlugin.Echo", class1, "abc");
         }
+
+        byte[] LoadDll(string dllname)
+        {
+            return File.ReadAllBytes(dllname); 
+        }
+
+        object CreateInstance(Assembly assembly, string objectName)
+        {
+            Type pluginType = assembly.GetType(objectName);
+
+            if (pluginType == null)
+                return null;
+
+            return Activator.CreateInstance(pluginType);
+        }
+
+        object RunMethod(string action, object instance, object param1)
+        {
+            string[] components = action.Split('.');
+
+            string interfaceName = components[0];
+            string methodName = components[1];
+
+            Type pluginType = instance.GetType();
+
+            var t = pluginType.GetInterface(interfaceName);
+            var mi = t.GetMethod(methodName);
+
+            var result = mi.Invoke(instance, new object[] { param1 });
+
+            return result;
+        }
+
     }
 }
