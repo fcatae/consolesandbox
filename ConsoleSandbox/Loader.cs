@@ -40,9 +40,15 @@ namespace ConsoleSandbox
             
             string dll = Path.Combine(appDomain.BaseDirectory, "Plugin", $"{asmName.Name}.dll");
 
-            var asm = Assembly.LoadFile(dll);
+            try
+            {
+                var asm = Assembly.LoadFile(dll);
+                return asm;
+            }
+            catch
+            { }
 
-            return asm;
+            return null;
         }
 
         public static Loader Instance
