@@ -27,6 +27,9 @@ namespace ConsoleSandbox
             var class2 = CreateInstance(assembly, "ClassLibrary1.Class2");
 
             var mi1 = RunMethod("IPlugin.Echo", class1, "abc");
+
+            // next command: fail
+            var mi2 = RunMethod("IPlugin.Echo", class2, "fail");
         }
 
         byte[] LoadDll(string dllname)
