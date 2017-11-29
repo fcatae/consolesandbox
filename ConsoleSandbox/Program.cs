@@ -17,6 +17,8 @@ namespace ConsoleSandbox
 
         void Start()
         {
+            Loader.Init();
+
             string dllname = "Plugin\\ClassLibrary1.dll";
 
             var bytes = LoadDll(dllname);
