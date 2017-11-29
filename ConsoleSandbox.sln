@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleSandbox", "ConsoleSa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary1", "ClassLibrary1\ClassLibrary1.csproj", "{F1497415-4F4D-465C-AE02-57F651788F08}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginSandbox", "PluginSandbox\PluginSandbox.csproj", "{B49BFBF1-B342-4D08-A3DB-01EEA89CD38C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tester", "Tester\Tester.csproj", "{76C5238C-989F-4334-AB7E-2C2640102A68}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{F1497415-4F4D-465C-AE02-57F651788F08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1497415-4F4D-465C-AE02-57F651788F08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1497415-4F4D-465C-AE02-57F651788F08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B49BFBF1-B342-4D08-A3DB-01EEA89CD38C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B49BFBF1-B342-4D08-A3DB-01EEA89CD38C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B49BFBF1-B342-4D08-A3DB-01EEA89CD38C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B49BFBF1-B342-4D08-A3DB-01EEA89CD38C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76C5238C-989F-4334-AB7E-2C2640102A68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76C5238C-989F-4334-AB7E-2C2640102A68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76C5238C-989F-4334-AB7E-2C2640102A68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76C5238C-989F-4334-AB7E-2C2640102A68}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

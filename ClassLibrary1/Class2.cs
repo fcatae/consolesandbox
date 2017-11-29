@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary1
 {
-    class Class2 : IPlugin
+    class Class2 : PluginSandbox.IPlugin
     {
         public string Echo(string text)
         {
