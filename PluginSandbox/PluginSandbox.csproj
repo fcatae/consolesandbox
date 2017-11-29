@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IPlugin.cs" />
+    <Compile Include="PluginFactory.cs" />
     <Compile Include="Sandbox.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

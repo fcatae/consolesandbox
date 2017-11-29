@@ -42,7 +42,7 @@ namespace ConsoleSandbox
             var assembly = Assembly.Load(bytes);
 
             var class1 = CreateInstance(assembly, "ClassLibrary1.Class1");
-            var class2 = CreateInstance(assembly, "ClassLibrary1.Class2");
+            var class2 = CreateInstance(assembly, "ClassLibrary1.Class3");
 
             var mi1 = RunMethod("IPlugin.Echo", class1, "abc");
 

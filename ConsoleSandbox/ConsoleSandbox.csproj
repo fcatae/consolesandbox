@@ -51,5 +51,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PluginSandbox\PluginSandbox.csproj">
+      <Project>{b49bfbf1-b342-4d08-a3db-01eea89cd38c}</Project>
+      <Name>PluginSandbox</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
