@@ -11,8 +11,8 @@ namespace Tester
     {
         static void Main(string[] args)
         {
-            var class3 = new Class3();
-            var result = class3.Echo("teste");
+            var class4 = new Class4();
+            var result = class4.Echo("teste");
 
             Console.WriteLine("result = " + result);
         }
