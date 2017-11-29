@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace PluginSandbox
 {
     [Serializable]
-    public class PluginFactory<T> where T: IPlugin, new()
+    public class PluginFactory<T> where T: class, new()
     {
-        public IPlugin Create()
+        public T Create()
         {
             return new T();
         }

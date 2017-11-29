@@ -22,7 +22,7 @@ namespace PluginSandbox
             _pluginDirectory = pluginDirectory;
         }
         
-        public IPlugin CreateLocal<T>() where T: class
+        public T CreateLocal<T>() where T: class
         {
             Type t = typeof(T);
             string assemblyName = t.Assembly.FullName;
@@ -32,11 +32,11 @@ namespace PluginSandbox
 
             var obj = assembly.CreateInstance(typeName);
 
-            return CreateProxy(obj);
+            return (T)obj;
         }
-        public IPlugin Create<T>() where T : IPlugin, new()
+
+        public T Create<T>() where T : class, new()
         {
-            //Type t = typeof(T);
             Type t = typeof(PluginFactory<T>);
             
             string assemblyName = t.Assembly.FullName;
@@ -88,11 +88,6 @@ namespace PluginSandbox
             }
 
             return defaultName;
-        }
-
-        IPlugin CreateProxy(object obj)
-        {
-            return (IPlugin)obj;
-        }
+        }        
     }
 }
