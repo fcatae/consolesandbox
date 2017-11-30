@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary1
 {
-    interface IPlugin2
+    interface IPluginExtension
     {
-        string LongEcho(string text);
+        string Repeat(string text);
     }
 }

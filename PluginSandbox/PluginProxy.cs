@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PluginSandbox
 {
-    public class PluginProxy : MarshalByRefObject , IPluginShared
+    public class PluginProxy : MarshalByRefObject
     {
         string _assemblyName;
         string _typeName;
@@ -22,17 +22,24 @@ namespace PluginSandbox
 
         public string Echo(string text)
         {
+            dynamic plugin = CreateSelf();
+
+            return plugin.Repeat(text);
+        }
+
+        
+        public dynamic CreateSelf()
+        {
             var t = Type.GetType(_typeName);
 
             var appDomain = AppDomain.CurrentDomain;
 
             var assembly = Assembly.Load(_assemblyName);
             var instance = assembly.CreateInstance(_typeName);
-
-            //var plugin = (IPlugin)instance;
+            
             dynamic plugin = instance;
 
-            return plugin.Echo(text);
+            return plugin;
         }
     }
 }

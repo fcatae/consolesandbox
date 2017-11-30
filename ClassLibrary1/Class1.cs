@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary1
 {
-    public class Class1 : IPlugin2
+    public class Class1 : IPluginExtension
     {
-        public string LongEcho(string text)
+        public string Repeat(string text)
         {
             return "LOOOOOOOONG Echo: " + text;
         }

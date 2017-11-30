@@ -11,7 +11,7 @@ namespace PluginSandbox
     public class Sandbox
     {
         string _pluginDirectory;
-
+        
         public Sandbox()
         {
             _pluginDirectory = ".";
@@ -22,19 +22,6 @@ namespace PluginSandbox
             _pluginDirectory = pluginDirectory;
         }
         
-        public T CreateLocal<T>() where T: class
-        {
-            Type t = typeof(T);
-            string assemblyName = t.Assembly.FullName;
-            string typeName = t.FullName;
-
-            var assembly = Assembly.Load(assemblyName);
-
-            var obj = assembly.CreateInstance(typeName);
-
-            return (T)obj;
-        }
-
         public PluginProxy Create(string assemblyName, string typeName)
         {
             Type t = typeof(PluginRemote);
@@ -43,68 +30,77 @@ namespace PluginSandbox
             string typeRemote = t.FullName;
 
             var appDomain = CreateAppDomain(typeRemote, _pluginDirectory);
-
-            //var remoteObj = appDomain.CreateInstance(assemblyRemote, typeRemote);
-            //remoteObj.CreateObjRef(typeof(IPlugin));
-
+            
             var remote = (PluginRemote)appDomain.CreateInstanceAndUnwrap(assemblyRemote, typeRemote);
 
             return remote.Create(assemblyName, typeName);
         }
 
-        public object Create<T>() where T: class, new()
+        public void Register<I,T>() 
+            where I: class
+            where T: I, new()
         {
-            Type t = typeof(PluginFactory<T>);
 
-            string assemblyName = t.Assembly.FullName;
-            string typeName = t.FullName;
+        }
 
-            var appDomain = CreateAppDomain(typeName, _pluginDirectory);
-            var remoteFactory = (PluginFactory<T>)appDomain.CreateInstanceAndUnwrap(assemblyName, typeName);
+        public T Create<T>(string assemblyName, string typeName) where T: class
+        {
+            return null;
+        }
 
-            return remoteFactory.Create();
+        public object CreateAndRun(string assemblyName, string typeName) 
+        {
+            var proxy = Create(assemblyName, typeName);
+
+            string param1 = "testeParam1";
+            object result = proxy.Echo(param1);
+
+            return result;
         }
 
         AppDomain CreateAppDomain(string name, string path)
         {
-            var appInfo = new AppDomainSetup() { ApplicationBase = Path.GetFullPath(path) };
+            string basePath = Path.GetFullPath(".");
+            string privPath = Path.GetFullPath(path);
+
+            var appInfo = new AppDomainSetup() { PrivateBinPath = privPath };
             var appDomain = AppDomain.CreateDomain(name, null, appInfo);
 
-            appDomain.AssemblyResolve += SandboxAssemblyResolver;
+            //appDomain.AssemblyResolve += SandboxAssemblyResolver;
 
             return appDomain;
         }
+        
+        //private static Assembly SandboxAssemblyResolver(object sender, ResolveEventArgs args)
+        //{
+        //    AppDomain domain = (AppDomain)sender;
+        //    string baseDirectory = domain.BaseDirectory;
 
-        private static Assembly SandboxAssemblyResolver(object sender, ResolveEventArgs args)
-        {
-            AppDomain domain = (AppDomain)sender;
-            string baseDirectory = domain.BaseDirectory;
+        //    string dll = FindAssemblyFile(baseDirectory, args.Name);
 
-            string dll = FindAssemblyFile(baseDirectory, args.Name);
+        //    var asm = Assembly.LoadFile(dll);
 
-            var asm = Assembly.LoadFile(dll);
+        //    return asm;
+        //}
 
-            return asm;
-        }
+        //private static string FindAssemblyFile(string baseDirectory, string assemblyName)
+        //{
+        //    AssemblyName asmName = new AssemblyName(assemblyName);
+        //    string name = (new AssemblyName(assemblyName)).Name;
+        //    string defaultName = $"{name}.dll";
 
-        private static string FindAssemblyFile(string baseDirectory, string assemblyName)
-        {
-            AssemblyName asmName = new AssemblyName(assemblyName);
-            string name = (new AssemblyName(assemblyName)).Name;
-            string defaultName = $"{name}.dll";
+        //    string[] validPaths = new string[] {
+        //        // Path.Combine(baseDirectory, "Plugin", this._plugin, $"{name}.dll"),
+        //        Path.Combine(baseDirectory, "Plugin", $"{name}.dll")
+        //    };
 
-            string[] validPaths = new string[] {
-                // Path.Combine(baseDirectory, "Plugin", this._plugin, $"{name}.dll"),
-                Path.Combine(baseDirectory, "Plugin", $"{name}.dll")
-            };
+        //    foreach (string path in validPaths)
+        //    {
+        //        if (File.Exists(path))
+        //            return path;
+        //    }
 
-            foreach (string path in validPaths)
-            {
-                if (File.Exists(path))
-                    return path;
-            }
-
-            return defaultName;
-        }        
+        //    return defaultName;
+        //}        
     }
 }

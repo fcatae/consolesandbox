@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary1
 {
-    public class Class2 : IPlugin2
+    public class Class2 : IPluginExtension
     {
-        public string LongEcho(string text)
+        public string Repeat(string text)
         {
             return JsonConvert.SerializeObject(new { Type = "Json", Text = text, Description = "LKDJSLKFJSLKDFJKLJSFDLKJFS" });
         }
