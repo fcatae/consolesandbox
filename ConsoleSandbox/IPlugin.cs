@@ -10,4 +10,8 @@ namespace ConsoleSandbox
     {
         string Echo(string text);
     }
+    interface IPlugin2
+    {
+        string LongEcho(string text);
+    }
 }

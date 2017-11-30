@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PluginSandbox
 {
-    public interface IPlugin
+    public interface IPluginShared
     {
         string Echo(string text);
     }

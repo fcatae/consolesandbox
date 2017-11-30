@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary1
 {
-    public class Class3 : IPlugin
+    public class Class3 : IPlugin2
     {
-        public string Echo(string text)
+        public string LongEcho(string text)
         {
             // create sandbox
             var sandbox = new Sandbox();
 
             // create class2 into sandbox
-            var class2 = (IPlugin)sandbox.Create<Class2>();
+            var class2 = (IPlugin2)sandbox.Create<Class2>();
 
             // call class2
-            var result = class2.Echo(text);
+            var result = class2.LongEcho(text);
 
             // return
             return result;

@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary2
 {
-    public class Class50 : IPlugin
+    public class Class50 
     {
         public string Echo(string text)
         {
             var class2 = new ClassLibrary1.Class2();
 
-            return class2.Echo(text);
+            return class2.LongEcho(text);
         }
     }
 }

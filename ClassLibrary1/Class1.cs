@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary1
 {
-    public class Class1 : IPlugin
+    public class Class1 : IPlugin2
     {
-        public string Echo(string text)
+        public string LongEcho(string text)
         {
-            return "Echo: " + text;
+            return "LOOOOOOOONG Echo: " + text;
         }
     }
 }

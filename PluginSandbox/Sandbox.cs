@@ -35,7 +35,7 @@ namespace PluginSandbox
             return (T)obj;
         }
 
-        public IPlugin Create(string assemblyName, string typeName)
+        public PluginProxy Create(string assemblyName, string typeName)
         {
             Type t = typeof(PluginRemote);
             

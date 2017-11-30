@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PluginSandbox
 {
-    class PluginProxy : MarshalByRefObject, IPlugin
+    public class PluginProxy : MarshalByRefObject , IPluginShared
     {
         string _assemblyName;
         string _typeName;

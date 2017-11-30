@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary1
 {
-    public class Class2 : PluginSandbox.IPlugin
+    public class Class2 : IPlugin2
     {
-        public string Echo(string text)
+        public string LongEcho(string text)
         {
-            return JsonConvert.SerializeObject(new { Type = "Json", Text = text });
+            return JsonConvert.SerializeObject(new { Type = "Json", Text = text, Description = "LKDJSLKFJSLKDFJKLJSFDLKJFS" });
         }
     }
 }

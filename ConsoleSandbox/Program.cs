@@ -38,12 +38,11 @@ namespace ConsoleSandbox
         {
            var sandbox = new PluginSandbox.Sandbox("Plugin");
 
-            IPlugin class1 = sandbox.Create("ClassLibrary1", "ClassLibrary1.Class1");
-            IPlugin class2 = sandbox.Create("ClassLibrary1", "ClassLibrary1.Class2");
+            var class1 = (IPluginShared) sandbox.Create("ClassLibrary1", "ClassLibrary1.Class1");
+            var class2 = (IPluginShared) sandbox.Create("ClassLibrary1", "ClassLibrary1.Class2");
 
             var mi1 = class1.Echo("abc");
-            var mi2 = class1.Echo("fail");
-
+            var mi2 = class1.Echo("no fail");
         }
 
         void StartSimple()
