@@ -1,17 +1,19 @@
-﻿using Newtonsoft.Json;
+﻿using PluginSandbox;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClassLibrary1
+namespace ClassLibrary2
 {
-    public class Class2 : PluginSandbox.IPlugin
+    public class Class50 : IPlugin
     {
         public string Echo(string text)
         {
-            return JsonConvert.SerializeObject(new { Type = "Json", Text = text });
+            var class2 = new ClassLibrary1.Class2();
+
+            return class2.Echo(text);
         }
     }
 }

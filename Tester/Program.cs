@@ -1,4 +1,4 @@
-﻿using ClassLibrary1;
+﻿using ClassLibrary2;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +11,8 @@ namespace Tester
     {
         static void Main(string[] args)
         {
-            var class4 = new Class4();
-            var result = class4.Echo("teste");
+            var class50 = new Class50();
+            var result = class50.Echo("teste");
 
             Console.WriteLine("result = " + result);
         }

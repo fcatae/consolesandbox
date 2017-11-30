@@ -35,10 +35,27 @@ namespace PluginSandbox
             return (T)obj;
         }
 
-        public T Create<T>() where T : class, new()
+        public IPlugin Create(string assemblyName, string typeName)
+        {
+            Type t = typeof(PluginRemote);
+            
+            string assemblyRemote = t.Assembly.FullName;
+            string typeRemote = t.FullName;
+
+            var appDomain = CreateAppDomain(typeRemote, _pluginDirectory);
+
+            //var remoteObj = appDomain.CreateInstance(assemblyRemote, typeRemote);
+            //remoteObj.CreateObjRef(typeof(IPlugin));
+
+            var remote = (PluginRemote)appDomain.CreateInstanceAndUnwrap(assemblyRemote, typeRemote);
+
+            return remote.Create(assemblyName, typeName);
+        }
+
+        public object Create<T>() where T: class, new()
         {
             Type t = typeof(PluginFactory<T>);
-            
+
             string assemblyName = t.Assembly.FullName;
             string typeName = t.FullName;
 

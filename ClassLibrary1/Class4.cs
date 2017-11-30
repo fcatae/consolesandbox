@@ -15,7 +15,7 @@ namespace ClassLibrary1
             var sandbox = new Sandbox("dll");
 
             // create class2 into sandbox
-            var class2 = sandbox.Create<Class2>();
+            var class2 = (IPlugin)sandbox.Create<Class2>();
 
             // call class2
             var result = class2.Echo(text);

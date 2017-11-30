@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleSandbox
 {
-    interface IPlugin
+    interface IPluginOld
     {
         string Echo(string text);
     }

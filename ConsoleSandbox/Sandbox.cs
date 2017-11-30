@@ -51,7 +51,7 @@ namespace ConsoleSandbox
             System.Runtime.Remoting.ObjectHandle a;
             a = _domain.CreateInstance(assemblyName, typeName);
 
-            return a.CreateObjRef(typeof(IPlugin));
+            return a.CreateObjRef(typeof(IPluginOld));
         }
 
         private static Assembly SandboxAssemblyResolve(object sender, ResolveEventArgs args)
